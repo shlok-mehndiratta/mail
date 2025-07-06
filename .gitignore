@@ -1,28 +1,37 @@
-# Ignore Python bytecode files
+# Python bytecode
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Ignore database files
-*.sqlite3
-*.db
+# SQLite DB (already present in your project root)
+db.sqlite3
 
-# Ignore media files
-media/  
+# Virtual Environment
+venv/
+env/
+.venv/
 
-# Ignore log files
-*.log
+# Django Migrations (keep actual files under version control, not compiled artifacts)
+*/migrations/__pycache__/
 
-# Ignore environment files
+# Static files (optional to ignore if you regenerate them)
+staticfiles/
+*.sass-cache
+*.css.map
+
+# Media files (if you use uploads)
+media/
+
+# Secret keys / env files
 .env
 
-# Ignore IDE/editor specific files
+# VS Code and IDE config
 .vscode/
- 
-# Ignore cache directories
-.cache/
+.idea/
 
-# Ignore migrations
-migrations/
+# macOS & Windows system files
+.DS_Store
+Thumbs.db
 
-# Ignore virtual environment directories
-venv/
+# Log files
+*.log

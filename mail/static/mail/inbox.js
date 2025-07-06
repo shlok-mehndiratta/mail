@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
+// Function to show the compose email view
 function compose_email() {
 
   // Show compose view and hide other views
@@ -24,7 +25,7 @@ function compose_email() {
 }
 
 
-
+// Function to load a specific mailbox
 function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
@@ -33,6 +34,38 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+
+  // Fetch emails from the server
+  fetch(`/emails/${mailbox}`)
+  .then(response => response.json())
+  .then(email => {
+
+      // Loop through each email and display it
+      email.forEach(mail => {
+          const email_element = document.createElement('div');
+          if (mail.read){
+            email_element.className = 'email-item alert alert-dark border border-dark';
+          } else {
+            email_element.className = 'email-item alert border border-dark';
+          }
+          
+          email_element.innerHTML = `
+              <strong>${mail.sender}</strong> - ${mail.subject}
+              <span class="text-muted float-right">
+                  ${mail.read ? '<span class="badge badge-secondary">Read</span>' : '<span class="badge badge-primary">Unread</span>'}
+              ${mail.timestamp}</span>
+          `;
+
+          // Add click event to view the email
+          email_element.addEventListener('click', () => {
+              view_email(mail.id);
+          });
+
+          // Append the email element to the mailbox view
+          document.querySelector('#emails-view').append(email_element);
+      });
+  });
+
 }
 
 
