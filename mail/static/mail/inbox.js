@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').addEventListener('submit', compose_submit);
-
+  
   // By default, load the inbox
   load_mailbox('inbox');
 });
@@ -17,6 +17,7 @@ function compose_email() {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#view-email').style.display = 'none';
 
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
@@ -31,6 +32,7 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#view-email').style.display = 'none';
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
@@ -44,13 +46,15 @@ function load_mailbox(mailbox) {
       email.forEach(mail => {
           const email_element = document.createElement('div');
           if (mail.read){
-            email_element.className = 'email-item alert alert-dark border border-dark';
+            email_element.className = 'email-item w-100 btn alert alert-dark border border-dark';
           } else {
-            email_element.className = 'email-item alert border border-dark';
+            email_element.className = 'email-item w-100 btn alert border border-dark';
           }
           
           email_element.innerHTML = `
+              <div class="float-left"> 
               <strong>${mail.sender}</strong> - ${mail.subject}
+              </div>
               <span class="text-muted float-right">
                   ${mail.read ? '<span class="badge badge-secondary">Read</span>' : '<span class="badge badge-primary">Unread</span>'}
               ${mail.timestamp}</span>
@@ -93,4 +97,34 @@ function compose_submit(event) {
 
   // After sending, load the sent mailbox
   load_mailbox('sent');
+}
+
+
+function view_email(id) {
+  document.querySelector('#view-email').innerHTML ='';
+
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#view-email').style.display = 'block';
+
+  fetch(`/emails/${id}`)
+  .then(response => response.json())
+  .then(email => {
+    console.log(email);
+
+    const emailview = document.createElement('div')
+    emailview.className = 'mail-details'
+    emailview.innerHTML = `
+            <p><strong>From: </strong>${email.sender}</p>
+            <p><strong>To: </strong>${email.recipients}</p>
+            <p><strong>Subject: </strong>${email.subject}</p>
+            <p><strong>Timestamp: </strong>${email.timestamp}</p>
+            <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
+            <hr>
+            <p class="mb-5">${email.body}</p>
+            `;
+    document.querySelector('#view-email').append(emailview);
+
+  })
+
 }
