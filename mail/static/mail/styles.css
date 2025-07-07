@@ -4,5 +4,5 @@ textarea {
 
 .email-item {
     min-width: 100%;
-    height: 500px;
+    height: auto;
 }
