@@ -46,9 +46,9 @@ function load_mailbox(mailbox) {
       email.forEach(mail => {
           const email_element = document.createElement('div');
           if (mail.read){
-            email_element.className = 'email-item w-100 btn alert alert-dark border border-dark';
+            email_element.className = 'email-item w-100 my-1 btn alert alert-dark border border-dark';
           } else {
-            email_element.className = 'email-item w-100 btn alert border border-dark';
+            email_element.className = 'email-item w-100 my-1 btn alert border border-dark';
           }
           
           email_element.innerHTML = `
@@ -121,10 +121,15 @@ function view_email(id) {
             <p><strong>Timestamp: </strong>${email.timestamp}</p>
             <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
             <hr>
-            <p class="mb-5">${email.body}</p>
+            <p class="mb-3">${email.body}</p>
             `;
     document.querySelector('#view-email').append(emailview);
 
-  })
+  });
 
+  fetch(`/emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      read: true })
+  });
 }
