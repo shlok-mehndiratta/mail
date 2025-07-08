@@ -116,47 +116,54 @@ function view_email(id) {
   .then(email => {
     console.log(email);
 
-    // Archive/unarchiev logic
-    if (currentMailbox !== "sent") {
-      const archivebtn = document.createElement('button')
-      archivebtn.innerHTML = email.archived ? 'Unarchive' : 'Archive';
-      archivebtn.className = email.archived ? 'btn btn-sm btn-outline-info float-right': 'btn btn-sm btn-outline-secondary float-right';
-      archivebtn.addEventListener('click', function() {
-        fetch(`/emails/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            archived: !email.archived })
-        })
-        .then(() => {
-          load_mailbox('inbox');
-        })        
-      })
-      document.querySelector('#view-email').append(archivebtn);
-    } 
-
     const emailview = document.createElement('div')
     emailview.className = 'mail-details'
     emailview.innerHTML = `
-            <p><strong>From: </strong>${email.sender}</p>
-            <p><strong>To: </strong>${email.recipients}</p>
-            <p><strong>Subject: </strong>${email.subject}</p>
-            <p><strong>Timestamp: </strong>${email.timestamp}</p>
-            <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
+            <div class="d-flex justify-content-between align-items-start" >
+            <p class="h4 mb-3"><strong>Subject: </strong>${email.subject}</p>
+            <p class="float-right font-weight-light">${email.timestamp}</p>
+            </div>
+            ${currentMailbox !== "sent" ? `
+              <button id="archive-button"
+              class="btn btn-sm float-right ${email.archived ? 'btn-outline-info' : 'btn-outline-secondary'} mb-2">
+              ${email.archived ? 'Unarchive' : 'Archive'}
+              </button>`
+            : ''}
+
+            <p class="my-1"><strong>From: </strong>${email.sender}</p>
+            <p class="mt-1"><strong>To: </strong>${email.recipients}</p>
+
+            <button class="btn btn-sm btn-outline-primary" id="reply"><i class="bi bi-reply fs-1"></i> Reply</button>
             <hr>
             <p class="mb-3">${email.body}</p>
             `;
     document.querySelector('#view-email').append(emailview);
+  
+    if (currentMailbox !== "sent") {
+      const archivebtn = document.querySelector('#archive-button');
+      archivebtn.addEventListener('click', function() {
+        fetch(`/emails/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            archived: !email.archived
+          })
+        })
+        .then(() => {
+          load_mailbox('inbox');
+        });
+      });
+    }
 
-  if (!email.read) {
-    fetch(`/emails/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        read: true })
-    })
-    .then(() => {
-      console.log("Marked as Read")
-    });  
-  }
+    if (!email.read) {
+      fetch(`/emails/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          read: true })
+      })
+      .then(() => {
+        console.log("Marked as Read")
+      });  
+    }
 
   });
 

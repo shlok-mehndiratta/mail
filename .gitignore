@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+migrations/__pycache__/
 
 # SQLite DB (already present in your project root)
 db.sqlite3
