@@ -121,40 +121,48 @@ function view_email(id) {
   .then(email => {
     console.log(email);
 
-  if (currentMailbox !== "sent") {
-        if (email.archived) {
+    if (currentMailbox !== "sent") {
+          if (email.archived) {
+            document.querySelector('#archive').style.display = 'none';
+            document.querySelector('#unarchive').style.display = 'block';
+          } else {
+            document.querySelector('#archive').style.display = 'block';
+            document.querySelector('#unarchive').style.display = 'none';
+          }
+    } else {
           document.querySelector('#archive').style.display = 'none';
-          document.querySelector('#unarchive').style.display = 'block';
-        } else {
-          document.querySelector('#archive').style.display = 'block';
           document.querySelector('#unarchive').style.display = 'none';
-        }
-  } else {
-        document.querySelector('#archive').style.display = 'none';
-        document.querySelector('#unarchive').style.display = 'none';
+    }
+
+    const emailview = document.createElement('div')
+    emailview.className = 'mail-details'
+    emailview.innerHTML = `
+            <p><strong>From: </strong>${email.sender}</p>
+            <p><strong>To: </strong>${email.recipients}</p>
+            <p><strong>Subject: </strong>${email.subject}</p>
+            <p><strong>Timestamp: </strong>${email.timestamp}</p>
+            <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
+            <hr>
+            <p class="mb-3">${email.body}</p>
+            `;
+    document.querySelector('#view-email').append(emailview);
+
+  if (!email.read) {
+    fetch(`/emails/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        read: true })
+    })
+    .then(() => {
+      console.log("Marked as Read")
+    });  
   }
 
-  const emailview = document.createElement('div')
-  emailview.className = 'mail-details'
-  emailview.innerHTML = `
-          <p><strong>From: </strong>${email.sender}</p>
-          <p><strong>To: </strong>${email.recipients}</p>
-          <p><strong>Subject: </strong>${email.subject}</p>
-          <p><strong>Timestamp: </strong>${email.timestamp}</p>
-          <button class="btn btn-sm btn-outline-primary" id="reply">Reply</button>
-          <hr>
-          <p class="mb-3">${email.body}</p>
-          `;
-  document.querySelector('#view-email').append(emailview);
-    
   });
 
-  fetch(`/emails/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      read: true })
-  });
+  
 }
+
 
 
 function archive_mail(id) {
