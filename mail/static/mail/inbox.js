@@ -43,9 +43,7 @@ function load_mailbox(mailbox) {
   document.querySelector("#email-details").style.display = "none";
 
   // Show the mailbox name
-  document.querySelector("#emails-view").innerHTML = `<h3>${
-    mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
-  }</h3>`;
+  document.querySelector("#emails-view").innerHTML = `<u><h3 class="mailbox-heading">${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3></u>`;
 
   // Fetch emails from the server
   fetch(`/emails/${mailbox}`)
@@ -203,7 +201,7 @@ function reply() {
     <hr>
     <div class="form-group d-flex align-items-center">
         <label class="mr-2">To:</label>
-         <input id="reply-recipients" class="form-control" value="${email.sender}">
+         <input id="reply-recipients" class="form-control py-1" value="${email.sender}">
     </div>
     <textarea class="form-control textarea-reply" id="reply-body" rows="8" autofocus></textarea>
     <input type="submit" class="btn btn-primary my-2" value="Send">
@@ -213,7 +211,7 @@ function reply() {
       document.querySelector("#reply-view").innerHTML = "";
       document.querySelector("#reply-view").append(replydiv);
 
-      const quoted = `\n\n\n-------------------------------------------------------------------\nOn ${email.timestamp} ${email.sender} wrote:\n${email.body.split('\n').map(line => '> ' + line).join('\n')}`;
+      const quoted = `\n\n\n-------------------------------------------------------------------\nOn ${email.timestamp} ${email.sender} wrote:\n${email.body.split('\n').map(line => '| ' + line).join('\n')}`;
       // Set textarea value: first line empty, quoted message below
       const textarea = document.getElementById("reply-body");
       textarea.value = quoted;

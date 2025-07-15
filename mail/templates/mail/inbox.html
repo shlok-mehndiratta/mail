@@ -2,20 +2,23 @@
 {% load static %}
 
 {% block body %}
+<div class="nav-content">
+    <img src="{% static 'mail/assets/email.png' %}" alt="email">
     <h2 class="my-3">{{ request.user.email }}</h2>
 
-    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
-    <hr>
+    <button class="btn btn-sm btn-outline-primary rounded-pill" id="inbox"><b>Inbox</b></button>
+    <button class="btn btn-sm btn-outline-primary rounded-pill" id="compose"><b>Compose</b></button>
+    <button class="btn btn-sm btn-outline-primary rounded-pill" id="sent"><b>Sent</b></button>
+    <button class="btn btn-sm btn-outline-primary rounded-pill" id="archived"><b>Archived</b></button>
+    <a class="btn btn-sm btn-outline-danger float-right" href="{% url 'logout' %}"><b>Log Out</b></a>
+</div>
 
+<div class="main-content">
     <div id="emails-view">
     </div>
 
     <div id="compose-view">
-        <h3>New Email</h3>
+        <h3 class="mailbox-heading">New Email</h3>
         <form id="compose-form">
             <div class="form-group">
                 From: <input disabled class="form-control" value="{{ request.user.email }}">
@@ -31,11 +34,12 @@
         </form>
     </div>
 
-    <div id="email-details">
+    <div id="email-details" class="p-3 mb-1">
         <div id="view-email"  class="shadow sm p-3 mb-4 rounded" style="--bs-border-opacity: .5;"></div>
-        <div id="reply-view" class="shadow-lg p-3 mb-5 bg-body-tertiary rounded-5">
+        <div id="reply-view" class="shadow-lg p-3 mb-2 bg-body-tertiary rounded-lg">
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}

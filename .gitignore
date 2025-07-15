@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-/migrations/__pycache__/
 
 # SQLite DB (already present in your project root)
 db.sqlite3
@@ -13,7 +12,7 @@ env/
 .venv/
 
 # Django Migrations (keep actual files under version control, not compiled artifacts)
-*/migrations/__pycache__/
+**/migrations/__pycache__/
 
 # Static files (optional to ignore if you regenerate them)
 staticfiles/
