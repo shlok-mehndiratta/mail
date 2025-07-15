@@ -2,7 +2,7 @@
 
 This is a fully functional single-page email client built with **Django**, **JavaScript**, and **Bootstrap**, completed as part of **CS50’s Web Programming with Python and JavaScript** course. The project replicates core features of real-world email systems, with all interactions handled dynamically using frontend JavaScript — no page reloads.
 
-All specified features have been implemented, and additional **CSS enhancements** were made to improve aesthetics, responsiveness, and user experience.
+All specified features have been implementedimplementedimplemented, and additional **CSS enhancements** were made to improve aesthetics, responsiveness, and user experience.
 
 <!-- ---
 
