@@ -1,8 +1,6 @@
-# 📬 Full-Stack Email Client – Django + JavaScript
+# 📬 Full-Stack Email Client Web App – Django + JavaScript
 
-This is a fully functional single-page email client built with **Django**, **JavaScript**, and **Bootstrap**, completed as part of **CS50’s Web Programming with Python and JavaScript** course. The project replicates core features of real-world email systems, with all interactions handled dynamically using frontend JavaScript — no page reloads.
-
-All specified features have been implementedimplementedimplemented, and additional **CSS enhancements** were made to improve aesthetics, responsiveness, and user experience.
+A full-featured, single-page email client that mimics core email functionalities—such as sending, reading, archiving, and replying to messages—built using Django for the backend and vanilla JavaScript for dynamic frontend interactions. Designed as part of an academic web development course, the project demonstrates API integration, frontend state management, and responsive UI design without using frontend frameworks.
 
 <!-- ---
 
@@ -33,7 +31,7 @@ All specified features have been implementedimplementedimplemented, and addition
 - ✅ **Read Status**: Mark emails as read upon viewing  
 - 🗂️ **Archiving**: Archive/unarchive received messages  
 - ↩️ **Reply**: Compose reply with pre-filled fields (To, Subject, Quoted Body)  
-- ⚡ **SPA Behavior**: All navigation and updates via JavaScript (no reloads)  
+- ⚡ **SPA Behaviour**: All navigation and updates via JavaScript (no reloads)  
 - 🎨 **Custom Styling**: Responsive layout, visual feedback for actions, icon buttons  
 
 ---
@@ -83,7 +81,6 @@ _All requests handled asynchronously via `fetch()` in `inbox.js`._
 - 📱 Mobile responsiveness with flexbox layouts
 - ✅ Colored feedback for read/unread status
 - ⏱ Timestamp and subject aligned using flex utility classes
-- ↩️ "Reply" button replaced with a sleek icon (`<i class="bi bi-reply"></i>`)
 - 🧭 Smooth toggling between views with instant DOM updates
 
 ---
@@ -94,27 +91,22 @@ Clone the repository and run the project locally:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/shlok-mehndiratta/mail.git
-   cd mail
+   git clone https://github.com/shlok-mehndiratta/mail-app.git
+   cd mail-app
    ```
-
-2. **Install Dependencies**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Run Migrations**
+   
+2. **Run Migrations**
     ```bash
     python manage.py makemigrations mail
     python manage.py migrate
     ```
 
-4. **Start the Server**
+3. **Start the Server**
     ```bash
     python manage.py runserver
     ```
 
-5. Visit http://127.0.0.1:8000/ in your browser and register a new user (can use any fake email/password combo).
+4. Visit http://127.0.0.1:8000/ in your browser and register a new user (can use any fake email/password combo).
 
 ---
 
