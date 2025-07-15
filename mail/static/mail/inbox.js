@@ -195,6 +195,7 @@ function reply() {
     .then((email) => {
       replydiv = document.createElement("div");
       replydiv.innerHTML = `
+    <button type="button" class="close p-2" aria-label="Close">×</button>
     <form id="reply-form">
     <div class="form-group"> 
           ↵ <strong>${email.subject.startsWith("Re:") ? `${email.subject}` : `Re: ${email.subject}`}</strong>
@@ -221,6 +222,10 @@ function reply() {
       textarea.selectionStart = 0;
       textarea.selectionEnd = 0;
       textarea.focus();
+
+      document.querySelector(".close").onclick = function () {
+        document.querySelector("#reply-view").style.display = "none";
+      };
 
       document.querySelector("#reply-form").onsubmit = function (event) {
         event.preventDefault();
