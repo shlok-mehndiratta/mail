@@ -1,8 +1,48 @@
-textarea {
+body {
+    font-family: 'Fira Sans', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+#compose-body {
     min-height: 400px;
+}
+
+.textarea-reply {
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+  font-size: 0.95em;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.4;
+  padding: 8px;
+}
+
+#emails-view {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+textarea:focus {
+    outline: none;
 }
 
 .email-item {
     min-width: 100%;
     height: auto;
+}
+
+.blockquote-reply {
+    margin: 0;
+    padding: 0 1rem;
+    border-left: 2px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.blockquote-reply p {
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+#reply-view .shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
