@@ -88,9 +88,9 @@ textarea:focus {
 
 img {
     position: absolute;
-    top: 20px;         /* distance from top */
+    top: 35px;         /* distance from top */
     left: 170px;        /* distance from left */
-    width: 70px;       /* fixed width */
+    width: 75px;       /* fixed width */
     height: auto;      /* maintain aspect ratio */
     max-width: 100px;  /* maximum width */
     object-fit: contain;
