@@ -1,6 +1,7 @@
 body {
     font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
     background: url('/static/mail/assets/bg.jpg') no-repeat center center fixed;
+    background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.7)), url('/static/mail/assets/bg.jpg');
     background-size: cover;
     color: #222; 
 }

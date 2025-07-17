@@ -49,7 +49,7 @@ def compose(request):
             }, status=400)
 
     # Get contents of email
-    subject = data.get("subject", "")
+    subject = data.get("subject", "") # Default to empty string if not provided
     body = data.get("body", "")
 
     # Create one email for each recipient, plus sender
@@ -92,8 +92,8 @@ def mailbox(request, mailbox):
         return JsonResponse({"error": "Invalid mailbox."}, status=400)
 
     # Return emails in reverse chronologial order
-    emails = emails.order_by("-timestamp").all()
-    return JsonResponse([email.serialize() for email in emails], safe=False)
+    emails = emails.order_by("-timestamp").all() # order by timestamp descending
+    return JsonResponse([email.serialize() for email in emails], safe=False) # safe=False allows returning a list of objects rather than a dict
 
 
 @csrf_exempt
